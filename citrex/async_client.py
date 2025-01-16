@@ -17,23 +17,26 @@ class AsyncCitrexClient(CitrexClient):
     """
     Asynchronous client for the Citrex API.
     """
-
+    
     def __init__(
         self,
         chain: SupportedChains = SupportedChains.SEI,
         env: Environment = Environment.PROD,
         private_key: str = None,
         subaccount_id: int = 0,
+        
     ):
-
+        
+        
         # Call the parent class constructor
         super().__init__(
             chain,
             env,
             private_key,
             subaccount_id,
-        )
 
+        )
+    
     async def get_product(self, symbol: str = None):
         """
         Get the product infos.
@@ -126,6 +129,7 @@ class AsyncCitrexClient(CitrexClient):
         """
         return await super().cancel_and_replace_order(*args, **kwargs)
 
+    
     async def cancel_all_orders(
         self,
         subaccount_id: int,
@@ -149,6 +153,7 @@ class AsyncCitrexClient(CitrexClient):
             authenticated=True,
         )
 
+    
     async def send_message_to_endpoint(
         self, endpoint: str, method: str, message: dict = {}, authenticated: bool = True, params: dict = {}
     ):
