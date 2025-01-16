@@ -296,8 +296,10 @@ class CitrexClient:
             **self.get_shared_params(),
         )
         print(f"create_authenticated_session_with_service: {login_payload}")
+        
+        print(f"Rest url: {self.rest_url}")
         response = requests.post(
-            self.api_url + "/v1/session/login",
+            self.rest_url + "/v1/session/login",
             json=login_payload,
         ).json()
         print(f"create_authenticated_session_with_service: {response}")
