@@ -64,18 +64,23 @@ class CitrexClient:
     def __init__(
         self,
         chain: SupportedChains = SupportedChains.SEI,
-        env: Environment = Environment.TESTNET,
+        env: Environment = Environment.PROD,
         private_key: str = None,
         subaccount_id: int = 0,
     ):
         """
         Initialize the client with the given environment.
         """
+        # print(f"Initializing Citrex client with chain: {chain}, env: {env}, subaccount_id: {subaccount_id}, private_key: {private_key}")
+        
+        
         self.config = CONFIG.get(chain).get(env)
         if self.config is None or not self.config.check():
             raise AttributeError()
 
         self.api_url = self.config.api_url
+        # I add the line below to fix the 'rest_url' error
+        self.rest_url = self.config.api_url
         self.stream_url = self.config.stream_url
         self.web3 = Web3(Web3.HTTPProvider(self.config.rpc_url))
         self.domain = make_domain(
@@ -425,9 +430,13 @@ class CitrexClient:
         Get all positions for the subaccount.
         """
         params = {"account": self.public_key, "subAccountId": self.subaccount_id}
+        # print(f"get_position: {params}")
         if symbol is not None:
             params["symbol"] = symbol
-        return self.send_message_to_endpoint("/v1/positionRisk", "GET", params=params, authenticated=True)
+            
+        position = self.send_message_to_endpoint("/v1/positionRisk", "GET", params=params, authenticated=True)
+        # print(f"get_position: {position}")
+        return position
 
     def get_approved_signers(self):
         """
