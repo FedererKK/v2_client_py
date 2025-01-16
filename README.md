@@ -1,13 +1,5 @@
 # Citrex
 
-A Python client for the Citrex API, providing a convenient wrapper to interact with the API.
-
-## Installation
-
-```shell
-pip install citrex
-```
-
 ## Usage
 
 ```python
