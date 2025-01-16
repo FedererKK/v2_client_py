@@ -288,7 +288,7 @@ class CitrexClient:
         )
         return self.send_message_to_endpoint("/v1/openOrders", "DELETE", message)
 
-        def create_authenticated_session_with_service(self):
+    def create_authenticated_session_with_service(self):
         login_payload = self.generate_and_sign_message(
             LoginMessage,
             message=f"I would like to log into {self.config.eip712_domain_name} finance",
