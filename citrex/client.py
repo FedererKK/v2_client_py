@@ -71,7 +71,7 @@ class CitrexClient:
         """
         Initialize the client with the given environment.
         """
-        # print(f"Initializing Citrex client with chain: {chain}, env: {env}, subaccount_id: {subaccount_id}, private_key: {private_key}")
+        print(f"Initializing Citrex client with chain: {chain}, env: {env}, subaccount_id: {subaccount_id}, private_key: {private_key}")
         
         
         self.config = CONFIG.get(chain).get(env)
