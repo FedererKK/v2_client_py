@@ -288,7 +288,7 @@ class CitrexClient:
         )
         return self.send_message_to_endpoint("/v1/openOrders", "DELETE", message)
 
-    def create_authenticated_session_with_service(self):
+        def create_authenticated_session_with_service(self):
         login_payload = self.generate_and_sign_message(
             LoginMessage,
             message=f"I would like to log into {self.config.eip712_domain_name} finance",
@@ -301,10 +301,22 @@ class CitrexClient:
         response = requests.post(
             self.rest_url + "/v1/session/login",
             json=login_payload,
-        ).json()
-        print(f"create_authenticated_session_with_service: {response}")
-        self.session_cookie = response.get("value")
-        return response
+        )
+
+        # Log full response details
+        print(f"Response status code: {response.status_code}")
+        print(f"Response headers: {response.headers}")
+        print(f"Response text: {response.text}")
+
+        try:
+            response_json = response.json()
+            print(f"create_authenticated_session_with_service: {response_json}, type: {type(response_json)}")
+            self.session_cookie = response_json.get("value")
+            return response_json
+        except requests.exceptions.JSONDecodeError as e:
+            print(f"JSONDecodeError: {e}")
+            print(f"Response content: {response.text}")
+            raise e
 
     def list_products(self) -> List[Any]:
         """
