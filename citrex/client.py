@@ -295,27 +295,27 @@ class CitrexClient:
             timestamp=self._current_timestamp(),
             **self.get_shared_params(),
         )
-        print(f"create_authenticated_session_with_service: {login_payload}")
+        # print(f"create_authenticated_session_with_service: {login_payload}")
         
-        print(f"Rest url: {self.rest_url}")
-        response = requests.post(
-            self.rest_url + "/v1/session/login",
-            json=login_payload,
-        )
+        # print(f"Rest url: {self.rest_url}")
+        # response = requests.post(
+        #     self.rest_url + "/v1/session/login",
+        #     json=login_payload,
+        # )
 
         # Log full response details
-        print(f"Response status code: {response.status_code}")
-        print(f"Response headers: {response.headers}")
-        print(f"Response text: {response.text}")
+        # print(f"Response status code: {response.status_code}")
+        # print(f"Response headers: {response.headers}")
+        # print(f"Response text: {response.text}")
 
         try:
             response_json = response.json()
-            print(f"create_authenticated_session_with_service: {response_json}, type: {type(response_json)}")
+            # print(f"create_authenticated_session_with_service: {response_json}, type: {type(response_json)}")
             self.session_cookie = response_json.get("value")
             return response_json
         except requests.exceptions.JSONDecodeError as e:
-            print(f"JSONDecodeError: {e}")
-            print(f"Response content: {response.text}")
+            # print(f"JSONDecodeError: {e}")
+            # print(f"Response content: {response.text}")
             raise e
 
     def list_products(self) -> List[Any]:
