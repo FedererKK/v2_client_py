@@ -295,10 +295,12 @@ class CitrexClient:
             timestamp=self._current_timestamp(),
             **self.get_shared_params(),
         )
+        print(f"create_authenticated_session_with_service: {login_payload}")
         response = requests.post(
             self.api_url + "/v1/session/login",
             json=login_payload,
         ).json()
+        print(f"create_authenticated_session_with_service: {response}")
         self.session_cookie = response.get("value")
         return response
 
