@@ -71,7 +71,7 @@ class CitrexClient:
         """
         Initialize the client with the given environment.
         """
-        print(f"Initializing Citrex client with chain: {chain}, env: {env}, subaccount_id: {subaccount_id}, private_key: {private_key}")
+        # print(f"Initializing Citrex client with chain: {chain}, env: {env}, subaccount_id: {subaccount_id}, private_key: {private_key}")
         
         
         self.config = CONFIG.get(chain).get(env)
@@ -105,7 +105,7 @@ class CitrexClient:
             except Exception:  # pylint: disable=broad-except
                 pass
 
-        print(f"Citrex client initialised with chain: {chain}, env: {env}")
+        # print(f"Citrex client initialised with chain: {chain}, env: {env}")
 
     def _validate_function(
         self,
@@ -298,10 +298,10 @@ class CitrexClient:
         # print(f"create_authenticated_session_with_service: {login_payload}")
         
         # print(f"Rest url: {self.rest_url}")
-        # response = requests.post(
-        #     self.rest_url + "/v1/session/login",
-        #     json=login_payload,
-        # )
+        response = requests.post(
+            self.rest_url + "/v1/session/login",
+            json=login_payload,
+        )
 
         # Log full response details
         # print(f"Response status code: {response.status_code}")
