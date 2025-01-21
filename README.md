@@ -8,7 +8,6 @@ from citrex.client import CitrexClient
 from citrex.enums import Environment
 
 client = CitrexClient(
-    chain=SupportedChains.ARBITRUM,
     environment=Environment.PROD
     private_key="your_private_key",
 )
