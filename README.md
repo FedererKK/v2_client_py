@@ -59,8 +59,8 @@ client = AsyncCitrexClient(private_key="*********")
 
 async def main():
     # Get the current info for a specific product
-    price = await client.get_product("ethperp")
-    print(price)
+    product = await client.get_product("ethperp")
+    print(product)
 
     # Create a limit order (buy 1 XRP at $3.1)
     order = await client.create_order(
