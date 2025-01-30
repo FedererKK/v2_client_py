@@ -5,12 +5,11 @@
 ```python
 
 from citrex.client import CitrexClient
-from citrex.enums import Environment
+from citrex.enums import OrderSide, OrderType, TimeInForce
 
-client = CitrexClient(
-    environment=Environment.PROD
-    private_key="your_private_key",
-)
+PRIVATE_KEY = "*********"
+
+client = CitrexClient(private_key=PRIVATE_KEY)
 
 # List available products
 products = client.list_products()
@@ -20,17 +19,30 @@ print(products)
 price = client.get_product("ethperp")
 print(price)
 
-# Place an order
-order = client.place_order(
-    symbol="ethperp",
-    side="BUY",
-    order_type="LIMIT",
-    post_only=False,
-    size="0.1",
-    price="1800",
-    limit_fee_rate="0.001"
+# Create a limit order (buy 1 XRP at $3.1)
+order = client.create_order(
+    subaccount_id=0,
+    product_id=1006,  # xrpperp
+    quantity=1,
+    side=OrderSide.BUY,
+    order_type=OrderType.LIMIT,
+    time_in_force=TimeInForce.GTC,
+    price="3.1",
 )
 print(order)
+
+# Get open orders
+open_orders = client.get_open_orders()
+print(open_orders)
+
+# Cancel an order, here we cancel the first open order from the list
+client.cancel_order(
+    order_id=open_orders[0]["id"], product_id=open_orders[0]["productId"]
+)
+
+# Cancel all orders for a specific market
+client.cancel_all_orders(subaccount_id=0, product_id=1006)  # xrpperp
+
 ```
 
 For asynchronous usage, refer to 'examples/async_client.py'.
