@@ -15,9 +15,9 @@ client = CitrexClient(private_key=PRIVATE_KEY)
 products = client.list_products()
 print(products)
 
-# Get the current price of a symbol
-price = client.get_product("ethperp")
-print(price)
+# Get the current info for a specific product
+product = client.get_product("ethperp")
+print(product)
 
 # Create a limit order (buy 1 XRP at $3.1)
 order = client.create_order(
