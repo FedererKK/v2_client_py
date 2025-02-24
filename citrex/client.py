@@ -180,7 +180,7 @@ class CitrexClient:
 
         message = self.generate_and_sign_message(
             Withdraw,
-            quantity=int(quantity * 1e18),
+            quantity=int(quantity * 1e6),
             nonce=self._current_timestamp(),
             **self.get_shared_params(subaccount_id=subaccount_id, asset=asset),
         )
@@ -523,7 +523,7 @@ class CitrexClient:
         Deposit an asset.
         """
         # we need to check if we have sufficient balance to deposit
-        required_wei = int(Decimal(str(quantity)) * Decimal(1e18))
+        required_wei = int(Decimal(str(quantity)) * Decimal(1e6))
         # we check the approvals
         asset_contract = self.get_contract(asset)
 
